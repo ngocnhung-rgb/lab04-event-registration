@@ -40,7 +40,7 @@ class Router {
             $controllerClass = $handler[0];
             $action = $handler[1];
 
-            // 🌟 CHỈNH SỬA: Kiểm tra tính toàn vẹn của Controller trước khi khởi tạo
+            // Kiểm tra tính toàn vẹn của Controller trước khi khởi tạo
             if (!class_exists($controllerClass) || !method_exists($controllerClass, $action)) {
                 http_response_code(404);
                 $error404 = __DIR__ . '/../../views/errors/404.php';

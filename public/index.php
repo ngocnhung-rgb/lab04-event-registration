@@ -26,7 +26,7 @@ session_set_cookie_params([
 ]);
 session_start();
 
-$timeoutDuration = 900; 
+$timeoutDuration = 300; 
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['last_activity_at'])) {
     $timeElapsed = time() - $_SESSION['last_activity_at'];
@@ -89,6 +89,6 @@ $router->get('/dashboard', [EventController::class, 'dashboard']);
 $router->get('/session-demo', [EventController::class, 'sessionDemo']);
 
 // =========================================================================
-// 3. THỰC THI ĐỊNH TUYẾN (DISPATCHER)
+// 3. THỰC THI ĐỊNH TUYẾN 
 // =========================================================================
 $router->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

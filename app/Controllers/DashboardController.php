@@ -5,7 +5,7 @@ namespace App\Controllers;
 class DashboardController {
 
     public function index() {
-        // 1. LỚP BẢO VỆ (Auth Guard): Nếu chưa đăng nhập session, lập tức đá văng ra trang Login
+        // 1. LỚP BẢO VỆ: Nếu chưa đăng nhập session, lập tức đá ra trang Login
         if (!isset($_SESSION['user_id'])) {
             if (function_exists('flash_set')) {
                 flash_set('error', 'Khu vực hạn chế! Vui lòng đăng nhập tài khoản quản trị trước.');

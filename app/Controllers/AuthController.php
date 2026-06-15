@@ -25,7 +25,6 @@ class AuthController {
         $email    = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
-        // 🌟 SỬA ĐỔI: Cập nhật đúng tài khoản theo yêu cầu Testcase trong ảnh Lab
         $adminEmail = 'student@example.com';
         $adminPass  = '123456'; 
 
