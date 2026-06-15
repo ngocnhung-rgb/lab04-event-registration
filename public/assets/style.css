@@ -1,0 +1,213 @@
+/* =========================================================================
+   1. ĐỊNH DẠNG TOÀN CỤC (GLOBAL STYLES)
+   ========================================================================= */
+body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    background-color: #f8f9fa; 
+    color: #333; 
+    line-height: 1.6; 
+}
+
+/* =========================================================================
+   2. NAVBAR ĐỒNG BỘ CAO CẤP (DÙNG CHUNG CHO TẤT CẢ CÁC TRANG)
+   ========================================================================= */
+.navbar { 
+    background-color: #1e2229; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 30px; 
+    height: 60px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+}
+.navbar-brand { 
+    color: #fff; 
+    font-weight: 700; 
+    text-decoration: none; 
+    font-size: 20px; 
+    letter-spacing: 0.5px; 
+}
+.navbar-nav { 
+    display: flex; 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+    gap: 10px; 
+    align-items: center; 
+}
+.navbar-nav a, .navbar-nav button { 
+    color: #ced4da; 
+    text-decoration: none; 
+    font-size: 14px; 
+    font-weight: 500; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    transition: all 0.3s ease; 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    font-family: inherit; 
+}
+.navbar-nav a:hover, .navbar-nav button:hover { 
+    color: #fff; 
+    background-color: rgba(255,255,255,0.1); 
+}
+.navbar-nav a.active { 
+    color: #fff; 
+    font-weight: 600; 
+    background-color: #4a5568; 
+}
+
+/* =========================================================================
+   3. GIAO DIỆN TRANG CHỦ (HOME PORTAL)
+   ========================================================================= */
+.hero-banner { 
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+    color: #fff; 
+    padding: 60px 20px; 
+    text-align: center; 
+}
+.hero-banner h1 { margin: 0 0 15px 0; font-size: 32px; font-weight: 700; }
+.hero-banner p { max-width: 700px; margin: 0 auto 25px auto; font-size: 16px; color: #e2e8f0; }
+
+.cta-btn { 
+    display: inline-block; 
+    padding: 14px 32px; 
+    background-color: #38a169; 
+    color: #fff; 
+    text-decoration: none; 
+    border-radius: 30px; 
+    font-weight: 600; 
+    font-size: 16px; 
+    box-shadow: 0 4px 12px rgba(56,161,105,0.4); 
+    transition: all 0.3s ease; 
+}
+.cta-btn:hover { 
+    background-color: #2f855a; 
+    transform: translateY(-2px); 
+}
+
+.stats-bar { 
+    max-width: 1000px; 
+    margin: -25px auto 40px auto; 
+    background: #fff; 
+    border-radius: 12px; 
+    padding: 20px; 
+    display: flex; 
+    justify-content: space-around; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+    border: 1px solid #e2e8f0; 
+}
+.stat-item { text-align: center; }
+.stat-number { font-size: 24px; font-weight: 700; color: #2b6cb0; }
+.stat-label { font-size: 12px; color: #718096; text-transform: uppercase; }
+
+.main-section { max-width: 1000px; margin: 0 auto 60px auto; padding: 0 20px; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.feature-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 25px 20px; text-align: center; transition: all 0.3s ease; }
+.feature-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
+
+/* =========================================================================
+   4. PHÂN HỆ FORM ĐĂNG KÝ & ĐĂNG NHẬP (CONTAINER)
+   ========================================================================= */
+.container { 
+    max-width: 500px; 
+    margin: 40px auto; 
+    padding: 30px; 
+    border: 1px solid #dee2e6; 
+    border-radius: 8px; 
+    background: #fff; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}
+.container h2 { margin-top: 0; color: #333; text-align: center; margin-bottom: 25px; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: bold; color: #495057; font-size: 14px; text-align: left; }
+.form-group input, .form-group select, .form-group textarea { 
+    width: 100%; 
+    padding: 10px; 
+    box-sizing: border-box; 
+    border: 1px solid #ced4da; 
+    border-radius: 4px; 
+}
+
+.btn-submit { 
+    padding: 12px 20px; 
+    background: #007bff; 
+    color: #fff; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    width: 100%; 
+    font-size: 16px; 
+    font-weight: bold; 
+    transition: background 0.2s ease;
+}
+.btn-submit:hover { background: #0069d9; }
+
+/* =========================================================================
+   5. TRẠNG THÁI ẨN / HỘP THÔNG BÁO HỆ THỐNG
+   ========================================================================= */
+.hidden-field { display: none !important; }
+.error { color: #dc3545; font-size: 0.85em; margin-top: 5px; text-align: left; display: block; }
+
+/* Gộp chung và tối ưu Hộp thông báo đăng ký thành công (Màu xanh lá) */
+.alert-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+    padding: 15px;
+    margin-bottom: 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(6, 95, 70, 0.05);
+    text-align: left;
+}
+.alert-success strong {
+    color: #047857;
+}
+
+/* Hộp cảnh báo đăng nhập nổi bật (Màu đỏ cam hổ phách cực kỳ bắt mắt) */
+.alert-danger-highlight {
+    display: flex;
+    align-items: flex-start;
+    background-color: #fffbeb; /* Nền vàng cam nhẹ */
+    border-left: 5px solid #d97706; /* Thanh viền cam đậm nhấn mạnh */
+    border-top: 1px solid #fef3c7;
+    border-right: 1px solid #fef3c7;
+    border-bottom: 1px solid #fef3c7;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px -1px rgba(217, 119, 6, 0.1);
+}
+.alert-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    margin-top: 2px;
+}
+.alert-content {
+    font-size: 14px;
+    color: #92400e;
+    line-height: 1.5;
+    text-align: left;
+}
+.alert-content strong {
+    display: block;
+    color: #78350f;
+    margin-bottom: 3px;
+    font-weight: 700;
+}
+.alert-content p {
+    margin: 0;
+}
+
+/* =========================================================================
+   6. BẢNG DỮ LIỆU DASHBOARD & FOOTER
+   ========================================================================= */
+table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+th, td { border: 1px solid #dee2e6; padding: 12px; text-align: left; }
+th { background-color: #e9ecef; }
+
+.footer { text-align: center; padding: 30px 20px; color: #a0aec0; font-size: 13px; border-top: 1px solid #e2e8f0; margin-top: 40px; }

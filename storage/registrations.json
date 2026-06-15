@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "fullname": "Nhung Luong",
+        "email": "ngocnhung200512@gmail.com",
+        "phone": "0708914981",
+        "event_type": "laravel_workshop",
+        "message": "123",
+        "registered_at": "2026-06-14 11:23:05"
+    }
+]
