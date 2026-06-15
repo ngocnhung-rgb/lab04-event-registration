@@ -15,7 +15,7 @@ use App\Controllers\AuthController;
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
 
 // Thiết lập cookie phiên an toàn chống tấn công XSS và CSRF mức nền tảng
-session_name('CONSULTATION_SESSID');
+session_name('LAB04SESSID');
 session_set_cookie_params([
     'lifetime' => 0,
     'path' => '/',
@@ -26,12 +26,45 @@ session_set_cookie_params([
 ]);
 session_start();
 
-// Chạy các bộ lọc kiểm tra Timeout phiên làm việc và Ngữ cảnh Session (nếu có)
-if (function_exists('check_session_timeout')) {
-    check_session_timeout();
-}
-if (function_exists('check_session_context')) {
-    check_session_context();
+$timeoutDuration = 900; 
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['last_activity_at'])) {
+    $timeElapsed = time() - $_SESSION['last_activity_at'];
+    
+    if ($timeElapsed > $timeoutDuration) {
+        $_SESSION = []; 
+        
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        session_destroy(); 
+        
+        // Khởi tạo lại phiên mới để giữ thông báo
+        session_start();
+        
+        $noticeText = 'Phiên làm việc đã hết hạn do bạn không hoạt động quá thời gian quy định. Vui lòng đăng nhập lại.';
+        if (function_exists('flash_set')) {
+            flash_set('logout_notice', $noticeText);
+        } else {
+            $_SESSION['logout_notice'] = $noticeText;
+        }
+        
+        // ghi đè Cookie định danh cho phiên thông báo mới trước khi Redirect
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), session_id(), 0,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        
+        header("Location: /login");
+        exit;
+    }
 }
 
 $router = new Router();
@@ -40,35 +73,22 @@ $router = new Router();
 // 1. PHÂN HỆ ĐIỀU HƯỚNG TƯ VẤN KHÓA HỌC (SECURE FORM, VALIDATION & ANTI-SPAM)
 // =========================================================================
 
-// Khi mở trang web lên ban đầu -> Hiển thị trang Home giới thiệu, tách biệt hoàn toàn
 $router->get('/', [EventController::class, 'home']);
-
-// Nhóm chức năng tạo Form riêng biệt khi bấm vào tab "Secure Form"
 $router->get('/consultations/create', [EventController::class, 'create']);
-
-// Điểm tiếp nhận submit form đăng ký thông qua phương thức POST an toàn
 $router->post('/consultations', [EventController::class, 'store']);
+$router->get('/consultations', [EventController::class, 'index']);
 
 // =========================================================================
 // 2. PHÂN HỆ XÁC THỰC QUẢN TRỊ VIÊN & DASHBOARD (LOGIN / SESSION FLOW)
 // =========================================================================
 
-// ĐÃ SỬA: GET /login -> Trỏ đúng về hàm showLoginForm để chỉ hiển thị giao diện View
 $router->get('/login', [AuthController::class, 'showLoginForm']);
-
-// ĐÃ SỬA: POST /login -> Trỏ đúng về hàm login để xử lý xác thực tài khoản khi submit form
 $router->post('/login', [AuthController::class, 'login']);
-
-// Đăng xuất an toàn bằng phương thức POST, xóa sạch session (Giữ nguyên)
 $router->post('/logout', [AuthController::class, 'logout']);
-
-// Dashboard bảo vệ - Gọi tường minh đến hàm dashboard của EventController (Giữ nguyên)
 $router->get('/dashboard', [EventController::class, 'dashboard']);
+$router->get('/session-demo', [EventController::class, 'sessionDemo']);
 
 // =========================================================================
 // 3. THỰC THI ĐỊNH TUYẾN (DISPATCHER)
 // =========================================================================
 $router->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-
-// Thêm route GET /session-demo trỏ về hàm xử lý trong EventController
-$router->get('/session-demo', 'EventController@sessionDemo');

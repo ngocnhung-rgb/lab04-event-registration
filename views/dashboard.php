@@ -14,7 +14,7 @@
             <a href="/consultations/create">Secure Form</a>
             <a href="/dashboard" class="active">Login/Session</a>
             <form action="/logout" method="POST" style="margin: 0; display: inline;">
-                <button type="submit" style="color: #fc8181; cursor: pointer;">Đăng xuất ↩</button>
+                <button type="submit" style="color: #fc8181; cursor: pointer; background: none; border: none; font-size: inherit;">Đăng xuất ↩</button>
             </form>
         </div>
     </nav>
@@ -22,6 +22,8 @@
     <div class="main-content" style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
         <?php if (function_exists('flash_get') && $success = flash_get('success')): ?>
             <div class="alert-success"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
+        <?php elseif (isset($_SESSION['success'])): ?>
+            <div class="alert-success"><?= htmlspecialchars($_SESSION['success'], ENT_QUOTES, 'UTF-8'); unset($_SESSION['success']); ?></div>
         <?php endif; ?>
 
         <div class="debug-panel" style="background: #edf2f7; border: 1px solid #cbd5e0; border-radius: 8px; padding: 20px; margin-bottom: 30px; text-align: left;">
@@ -30,7 +32,9 @@
                 <div><strong>• User (Email):</strong> <?= function_exists('h') ? h($_SESSION['user_email'] ?? 'N/A') : htmlspecialchars($_SESSION['user_email'] ?? 'N/A') ?></div>
                 <div><strong>• Role Authority:</strong> <span style="color: #28a745; font-weight: bold;"><?= function_exists('h') ? h($_SESSION['user_role'] ?? 'Guest') : htmlspecialchars($_SESSION['user_role'] ?? 'Guest') ?></span></div>
                 <div><strong>• Login At:</strong> <?= function_exists('h') ? h($_SESSION['login_at'] ?? 'N/A') : htmlspecialchars($_SESSION['login_at'] ?? 'N/A') ?></div>
-                <div><strong>• Last Activity:</strong> <?= date('Y-m-d H:i:s', $_SESSION['last_activity'] ?? time()) ?></div>
+                
+                <div><strong>• Last Activity:</strong> <?= isset($_SESSION['last_activity_at']) ? date('Y-m-d H:i:s', $_SESSION['last_activity_at']) : 'N/A' ?></div>
+                
                 <div style="grid-column: span 2;"><strong>• Secure Session ID:</strong> <span style="color: #0056b3;"><?= session_id() ?></span> (Đã đổi qua <code>session_regenerate_id</code>)</div>
             </div>
         </div>
@@ -52,7 +56,7 @@
                     <tr>
                         <td colspan="6" style="text-align: center; color: #888; padding: 20px;">Hệ thống chưa ghi nhận lượt đăng ký nào từ tệp JSON.</td>
                     </tr>
-                <?php else: ?>
+                <?php null; else: ?>
                     <?php 
                     // Sắp xếp bản ghi mới nhất lên đầu bảng để quản trị viên dễ theo dõi
                     foreach (array_reverse($registrations) as $reg): 
@@ -64,7 +68,6 @@
                             <td><?= function_exists('h') ? h($reg['phone']) : htmlspecialchars($reg['phone']) ?></td>
                             <td>
                                 <?php
-                                    // ĐÃ SỬA: Thay event_type bằng course (Hỗ trợ dự phòng dữ liệu cũ)
                                     $type = $reg['course'] ?? $reg['event_type'] ?? '';
                                     if ($type === 'laravel_workshop') echo '🎓 Workshop Laravel 11';
                                     elseif ($type === 'cyber_security') echo '🛡️ Tọa đàm An ninh mạng';

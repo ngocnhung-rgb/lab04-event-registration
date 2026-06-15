@@ -16,22 +16,30 @@
     </nav>
 
     <div class="container">
-        <h2>🎉 ĐĂNG KÝ TƯ VẤN KHÓA HỌC</h2>
+        <h2> ĐĂNG KÝ TƯ VẤN KHÓA HỌC</h2>
 
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="alert-success">
-                <strong>Thành công!</strong> <?= htmlspecialchars($_SESSION['success'], ENT_QUOTES, 'UTF-8') ?>
+        <?php 
+        // 1. XỬ LÝ ĐỌC VÀ HIỂN THỊ FLASH MESSAGE THÀNH CÔNG (ĐÃ ĐỒNG BỘ)
+        $successMsg = $_SESSION['success'] ?? null;
+        if (isset($_SESSION['success'])) { 
+            unset($_SESSION['success']); 
+        } // Xóa ngay lập tức để không bị hiện mãi khi reload (chống kẹt trạng thái)
+        ?>
+
+        <?php if ($successMsg): ?>
+            <div class="alert-success" style="background-color: #f0fff4; color: #38a169; border: 1px solid #c6f6d5; padding: 12px; margin-bottom: 20px; border-radius: 6px; font-weight: bold;">
+                <?= htmlspecialchars($successMsg, ENT_QUOTES, 'UTF-8') ?>
             </div>
-            <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
 
         <?php 
+        // Hứng thông báo lỗi hệ thống nếu có
         if (function_exists('flash_get')) { flash_get('error'); }
         if (isset($_SESSION['error'])) { unset($_SESSION['error']); }
         ?>
 
         <?php 
-        // Đọc danh sách lỗi chi tiết từng trường
+        // 2. Đọc danh sách lỗi chi tiết từng trường dữ liệu khi validation thất bại
         $errors = [];
         if (function_exists('flash_get')) {
             $errors = flash_get('errors') ?? [];
@@ -39,20 +47,22 @@
         if (empty($errors) && isset($_SESSION['errors'])) {
             $errors = $_SESSION['errors'];
         }
-        // Xóa ngay bộ nhớ Session errors để thông báo biến mất ngay lập tức sau 1 lần load/nhấn nút
-        if (isset($_SESSION['errors'])) { unset($_SESSION['errors']); }
+        if (isset($_SESSION['errors'])) { 
+            unset($_SESSION['errors']); 
+        }
 
-        // Đọc lại dữ liệu cũ người dùng đã điền
+        // 3. Khôi phục lại dữ liệu cũ người dùng đã điền trước đó để họ sửa
         $old = [];
         if (function_exists('old_get')) {
-            // Nếu hệ thống dùng hàm helper cũ thì lấy qua helper, hoặc đọc từ session dự phòng
             $old = $_SESSION['old'] ?? []; 
         } else {
             $old = $_SESSION['old'] ?? [];
         }
-        if (isset($_SESSION['old'])) { unset($_SESSION['old']); }
+        if (isset($_SESSION['old'])) { 
+            unset($_SESSION['old']); 
+        }
 
-        // Nếu mảng $errors có chứa lỗi validation, đổ hộp thông báo màu đỏ đúng chuẩn yêu cầu của Lab
+        // Nếu mảng $errors có chứa lỗi validation, đổ hộp thông báo màu đỏ nhắc nhở
         if (!empty($errors)): 
         ?>
             <div style="background-color: #fff5f5; color: #e53e3e; border: 1px solid #fed7d7; padding: 15px; margin-bottom: 22px; border-radius: 8px; font-size: 14px; text-align: left; font-weight: 500; box-shadow: 0 2px 4px rgba(229, 62, 62, 0.05);">

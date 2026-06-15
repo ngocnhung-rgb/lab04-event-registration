@@ -1,5 +1,5 @@
 /* =========================================================================
-   1. ĐỊNH DẠNG TOÀN CỤC (GLOBAL STYLES)
+   1. ĐỊNH DẠNG TOÀN CỤC 
    ========================================================================= */
 body { 
     font-family: 'Segoe UI', Arial, sans-serif; 
@@ -11,7 +11,7 @@ body {
 }
 
 /* =========================================================================
-   2. NAVBAR ĐỒNG BỘ CAO CẤP (DÙNG CHUNG CHO TẤT CẢ CÁC TRANG)
+   2. NAVBAR ĐỒNG BỘ (DÙNG CHUNG CHO TẤT CẢ CÁC TRANG)
    ========================================================================= */
 .navbar { 
     background-color: #1e2229; 
@@ -61,7 +61,7 @@ body {
 }
 
 /* =========================================================================
-   3. GIAO DIỆN TRANG CHỦ (HOME PORTAL)
+   3. GIAO DIỆN TRANG CHỦ 
    ========================================================================= */
 .hero-banner { 
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
@@ -110,7 +110,7 @@ body {
 .feature-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
 
 /* =========================================================================
-   4. PHÂN HỆ FORM ĐĂNG KÝ & ĐĂNG NHẬP (CONTAINER)
+   4. PHÂN HỆ FORM ĐĂNG KÝ & ĐĂNG NHẬP 
    ========================================================================= */
 .container { 
     max-width: 500px; 
@@ -152,7 +152,6 @@ body {
 .hidden-field { display: none !important; }
 .error { color: #dc3545; font-size: 0.85em; margin-top: 5px; text-align: left; display: block; }
 
-/* Gộp chung và tối ưu Hộp thông báo đăng ký thành công (Màu xanh lá) */
 .alert-success {
     background-color: #ecfdf5;
     color: #065f46;
@@ -168,7 +167,7 @@ body {
     color: #047857;
 }
 
-/* Hộp cảnh báo đăng nhập nổi bật (Màu đỏ cam hổ phách cực kỳ bắt mắt) */
+/* Hộp cảnh báo đăng nhập nổi bật */
 .alert-danger-highlight {
     display: flex;
     align-items: flex-start;

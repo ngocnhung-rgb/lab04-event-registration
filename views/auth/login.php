@@ -19,7 +19,7 @@
 
     <div class="container">
         <?php 
-        // 1. Đọc gói tin thông báo trạng thái logout/timeout
+        // 1. Đọc gói tin thông báo trạng thái logout/timeout công khai
         $logoutMsg = '';
         if (function_exists('flash_get')) {
             $logoutMsg = flash_get('logout_notice');
@@ -27,24 +27,20 @@
         if (empty($logoutMsg) && isset($_SESSION['logout_notice'])) {
             $logoutMsg = $_SESSION['logout_notice'];
         }
-        // Xóa ngay lập tức để không bị hiện mãi khi reload (chống kẹt trạng thái)
         if (isset($_SESSION['logout_notice'])) { unset($_SESSION['logout_notice']); }
         ?>
 
         <?php if (!empty($logoutMsg)): ?>
             <h2>Phiên đăng nhập đã kết thúc</h2>
+            <div style="background-color: #fffaf0; color: #dd6b20; border: 1px solid #feebc8; padding: 12px 15px; margin-bottom: 20px; border-radius: 6px; font-size: 14px; text-align: left; font-weight: bold;">
+                <?= htmlspecialchars($logoutMsg, ENT_QUOTES, 'UTF-8') ?>
+            </div>
         <?php else: ?>
             <h2>🔐 ĐĂNG NHẬP QUẢN TRỊ</h2>
         <?php endif; ?>
 
-        <?php if (!empty($logoutMsg)): ?>
-            <div style="background-color: #fffaf0; color: #dd6b20; border: 1px solid #feebc8; padding: 12px 15px; margin-bottom: 20px; border-radius: 6px; font-size: 14px; text-align: left; font-weight: bold;">
-                <?= htmlspecialchars($logoutMsg, ENT_QUOTES, 'UTF-8') ?>
-            </div>
-        <?php endif; ?>
-
         <?php 
-        // 2. Đọc gói tin thông báo lỗi sai tài khoản hoặc lỗi hệ thống
+        // 2. Đọc gói tin lỗi hệ thống hoặc sai tài khoản mật khẩu
         $errorMsg = '';
         if (function_exists('flash_get')) { 
             $errorMsg = flash_get('error'); 
@@ -56,7 +52,7 @@
             unset($_SESSION['error']); 
         }
 
-        // 3. Lấy lại email cũ đã điền từ session dự phòng nếu không dùng helper
+        // 3. Khôi phục dữ liệu email cũ đã nhập
         $oldEmail = '';
         if (function_exists('old_get')) {
             $oldEmail = old_get('email') ?? '';
@@ -67,12 +63,13 @@
 
         if (!empty($errorMsg)): 
         ?>
-            <div class="alert-danger-highlight">
-                <span class="alert-icon">⚠️</span>
+            <div class="alert-danger-highlight" style="border-left: 4px solid #e53e3e; background: #fff5f5; color: #c53030; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+                <span class="alert-icon" style="float: left; margin-right: 10px; font-size: 18px;">⚠️</span>
                 <div class="alert-content">
                     <strong>Thông báo hệ thống:</strong>
-                    <p><?= htmlspecialchars($errorMsg, ENT_QUOTES, 'UTF-8') ?></p>
+                    <p style="margin: 5px 0 0 0; font-size: 14px;"><?= htmlspecialchars($errorMsg, ENT_QUOTES, 'UTF-8') ?></p>
                 </div>
+                <div style="clear: both;"></div>
             </div>
         <?php endif; ?>
 
