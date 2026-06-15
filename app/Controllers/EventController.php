@@ -220,4 +220,20 @@ class EventController {
 
         include dirname(__DIR__, 2) . '/views/dashboard.php';
     }
+
+    // 5. GET /session-demo -> Hiển thị thông tin session phục vụ debug theo đúng yêu cầu bài Lab
+    public function sessionDemo() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Chốt chặn bảo mật: Chỉ cho phép admin đã đăng nhập xem thông tin debug này
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /login");
+            exit;
+        }
+
+        // Đọc file view chứa bảng debug session hoặc render trực tiếp HTML đồng bộ hệ thống
+        include dirname(__DIR__, 2) . '/views/session_demo.php';
+    }
 }

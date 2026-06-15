@@ -69,3 +69,6 @@ $router->get('/dashboard', [EventController::class, 'dashboard']);
 // 3. THỰC THI ĐỊNH TUYẾN (DISPATCHER)
 // =========================================================================
 $router->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+// Thêm route GET /session-demo trỏ về hàm xử lý trong EventController
+$router->get('/session-demo', 'EventController@sessionDemo');
