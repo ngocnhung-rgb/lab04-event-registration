@@ -53,11 +53,11 @@ class AuthController {
             exit;
         }
 
-        // --- TIÊU CHÍ CHỐT HẠ: PHÁ HỦY TOÀN BỘ CƠ HỘI CỦA TẤN CÔNG SESSION FIXATION ---
+        // --- TIÊU CHÍ: PHÁ HỦY TOÀN BỘ CƠ HỘI CỦA TẤN CÔNG SESSION FIXATION ---
         // Xóa sạch session cũ trước đó, sinh mới ID phiên hoàn toàn ngẫu nhiên
         session_regenerate_id(true); 
 
-        // Xử lý tính năng Remember Me (Giữ nguyên cấu hình bảo mật cookie gốc của bạn)
+        // Xử lý tính năng Remember Me (Giữ nguyên cấu hình bảo mật cookie gốc)
         if (isset($_POST['remember_me'])) {
             $rememberToken = bin2hex(random_bytes(32)); 
             $storedTokenHash = hash('sha256', $rememberToken);
