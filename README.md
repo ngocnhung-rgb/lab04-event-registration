@@ -17,22 +17,18 @@ XSS Prevention: Sử dụng htmlspecialchars() để làm sạch dữ liệu hi�
 
 CSRF Prevention: Sử dụng phương thức POST cho các hành động quan trọng như đăng xuất.
 
-3. Hướng dẫn cài đặt & Chạy dự án
-Dự án này được thiết kế để chạy trên môi trường GitHub Codespaces. Hãy làm theo các bước sau:
+3. Hướng dẫn chạy dự án
 
-Khởi động Server: Mở Terminal trong Codespace.
-Chạy lệnh sau để khởi động PHP Server:
+Cách 1: Chạy trực tiếp trên GitHub Codespaces
+- Mở Terminal trong Codespace.
+- Chạy lệnh sau để khởi động PHP Server: php -S 0.0.0.0:8000 -t public
+- Nhấn vào thông báo "Open in Browser" hoặc vào tab Ports, chuột phải vào cổng 8000 chọn Port Visibility -> Public, sau đó mở link URL được cung cấp.
 
-php -S 0.0.0.0:8000 -t public
-
-Sau khi chạy lệnh trên, VS Code/Codespace sẽ hiện một thông báo ở góc dưới bên phải màn hình: "Your application running on port 8000 is available".
-
-Bạn hãy nhấn nút "Open in Browser" trên thông báo đó để truy cập trang web.
-
-Lưu ý: Nếu thông báo không hiện, hãy vào tab Ports trong panel phía dưới, tìm cổng 8000, chuột phải vào đó và chọn "Open in Browser" (hoặc copy link https://didactic-space-succotash-5vg5749p9j5x34jw9-8000.app.github.dev/).
-Project sử dụng cơ chế kiểm soát truy cập qua cổng, đảm bảo rằng trong tab Ports, cổng 8000 được để ở chế độ Public.
+Cách 2: Chạy trên máy cục bộ
+Nếu bạn muốn chạy trên máy cá nhân, hãy clone repository về và sử dụng lệnh:
+php -S localhost:8000 -t public
 
 
 Tài khoản demo: student@example.com / 123456
 
-Chú thích: Dự án này ưu tiên chạy trực tiếp trên GitHub Codespaces để trải nghiệm ngay. Nếu Codespaces hết hạn hoặc không truy cập được, giảng viên có thể clone mã nguồn về máy cục bộ và chạy bằng lệnh php -S localhost:8000 -t public trong thư mục gốc.
+Chú thích: Dự án này ưu tiên chạy trực tiếp trên GitHub Codespaces để trải nghiệm ngay. Nếu Codespaces hết hạn hoặc không truy cập được, người dùng có thể clone mã nguồn về máy cục bộ và chạy bằng lệnh php -S localhost:8000 -t public trong thư mục gốc.
