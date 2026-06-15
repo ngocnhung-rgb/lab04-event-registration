@@ -34,3 +34,5 @@ Project sử dụng cơ chế kiểm soát truy cập qua cổng, đảm bảo r
 
 
 Tài khoản demo: student@example.com / 123456
+
+Chú thích: Dự án này ưu tiên chạy trực tiếp trên GitHub Codespaces để trải nghiệm ngay. Nếu Codespaces hết hạn hoặc không truy cập được, giảng viên có thể clone mã nguồn về máy cục bộ và chạy bằng lệnh php -S localhost:8000 -t public trong thư mục gốc.
